@@ -1,13 +1,6 @@
 #**********************************
 package AbstractFactory;
 
-sub new {
-    my $class = shift;
-    my $self = {@_};
-    bless $self,$class;
-    return $self;
-} ## --- end sub new
-
 sub CreateProductA {
     my	( $self)	= @_;
     return ;
@@ -64,31 +57,41 @@ sub CreateProductB {
 
 #**********************************
 package AbstractProductA;
-sub new {
-    my $class = shift;
-    my $self = {@_};
-    bless $self,$class;
-    return $self;
-} ## --- end sub new
-
-package AbstractProductB;
-sub new {
-    my $class = shift;
-    my $self = {@_};
-    bless $self,$class;
-    return $self;
-} ## --- end sub new
 
 sub Interact {
     my	( $self )	= @_;
     return ;
 } ## --- end sub CreateProductB
 
+#**********************************
+package AbstractProductB;
+
+sub Interact {
+    my	( $self )	= @_;
+    return ;
+} ## --- end sub CreateProductB
+
+#**********************************
 package ProductA1;
 use base AbstractProductA;
 
+sub new {
+    my $class = shift;
+    my $self = {@_};
+    bless $self,$class;
+    return $self;
+} ## --- end sub new
+
+#**********************************
 package ProductB1;
 use base AbstractProductB;
+
+sub new {
+    my $class = shift;
+    my $self = {@_};
+    bless $self,$class;
+    return $self;
+} ## --- end sub new
 
 sub Interact {
     my	( $self,$product )	= @_;
@@ -96,11 +99,27 @@ sub Interact {
     return ;
 } ## --- end sub Interact
 
+#**********************************
 package ProductA2;
 use base AbstractProductA;
 
+sub new {
+    my $class = shift;
+    my $self = {@_};
+    bless $self,$class;
+    return $self;
+} ## --- end sub new
+
+#**********************************
 package ProductB2;
 use base AbstractProductB;
+
+sub new {
+    my $class = shift;
+    my $self = {@_};
+    bless $self,$class;
+    return $self;
+} ## --- end sub new
 
 sub Interact {
     my	( $self,$product )	= @_;
@@ -108,6 +127,7 @@ sub Interact {
     return ;
 } ## --- end sub Interact
 
+#**********************************
 package Client;
 
 my $_abstractProductA;
@@ -129,6 +149,7 @@ sub Run {
     $_abstractProductB->Interact( $_abstractProductA );
     return ;
 } ## --- end sub Run
+#**********************************
 
 #!/usr/bin/perl -w
 use strict;
@@ -149,7 +170,6 @@ $client1->Run;
 
 my $client2 = Client->new( factory => $factory2 );
 $client2->Run;
-
 
 my $t1 = new Benchmark;
 my $td = timediff($t1, $t0);
